@@ -16,11 +16,10 @@ export const goodsFromServer = [
   'Garlic',
 ];
 
-let sorted;
-let reversed;
-
 export const App = () => {
   const [goods, setGoods] = useState(goodsFromServer);
+  const [sorted, setSort] = useState('');
+  const [reversed, setReverse] = useState(false);
 
   return (
     <div className="section content">
@@ -37,7 +36,7 @@ export const App = () => {
               setGoods([...goods].sort((a, b) => a.localeCompare(b)));
             }
 
-            sorted = 'ALPHABET';
+            setSort('ALPHABET');
           }}
         >
           Sort alphabetically
@@ -55,7 +54,7 @@ export const App = () => {
               setGoods([...goods].sort((a, b) => a.length - b.length));
             }
 
-            sorted = 'LENGTH';
+            setSort('LENGTH');
           }}
         >
           Sort by length
@@ -69,14 +68,14 @@ export const App = () => {
           onClick={() => {
             setGoods([...goods].reverse());
             if (reversed === true) {
-              reversed = false;
+              setReverse(false);
               if (sorted === 'REVERSE') {
-                sorted = '';
+                setSort('');
               }
             } else {
-              reversed = true;
+              setReverse(true);
               if (!sorted) {
-                sorted = 'REVERSE';
+                setSort('REVERSE');
               }
             }
           }}
@@ -90,8 +89,8 @@ export const App = () => {
             className="button is-danger is-light"
             onClick={() => {
               setGoods(goodsFromServer);
-              sorted = '';
-              reversed = false;
+              setSort('');
+              setReverse(false);
             }}
           >
             Reset
